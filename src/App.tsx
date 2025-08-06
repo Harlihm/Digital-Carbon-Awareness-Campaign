@@ -1,5 +1,3 @@
-import './App.css';
-import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
@@ -8,6 +6,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Separator } from './components/ui/separator';
 import { Badge } from './components/ui/badge';
 import { Leaf, Heart, Users, Calculator, Car, Lightbulb, Zap } from 'lucide-react';
+import { useState } from 'react';
+import './App.css';
+
 
 function App() {
    const [generatorUses, setGeneratorUses] = useState('');
