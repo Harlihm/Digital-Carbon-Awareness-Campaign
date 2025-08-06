@@ -75,7 +75,7 @@ function App() {
             <Badge variant="secondary" className="mb-4">
               Digital Awareness Campaign
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 text-pink-500">
               Reduce Your Campus 
               <span className="text-green-600"> Carbon Footprint</span>
             </h1>
