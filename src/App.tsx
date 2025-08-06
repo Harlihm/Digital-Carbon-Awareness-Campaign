@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
@@ -6,12 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Separator } from './components/ui/separator';
 import { Badge } from './components/ui/badge';
 import { Leaf, Heart, Users, Calculator, Car, Lightbulb, Zap } from 'lucide-react';
-import { useState } from 'react';
-import './App.css';
 
-
-function App() {
-   const [generatorUses, setGeneratorUses] = useState('');
+export default function App() {
+  const [generatorUses, setGeneratorUses] = useState('');
   const [motorcycleUses, setMotorcycleUses] = useState('');
   const [fuelType, setFuelType] = useState('');
   const [generatorDuration, setGeneratorDuration] = useState('');
@@ -40,7 +38,7 @@ function App() {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-   return (
+  return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Navigation */}
       <nav className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b">
@@ -75,7 +73,7 @@ function App() {
             <Badge variant="secondary" className="mb-4">
               Digital Awareness Campaign
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 text-pink-500">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
               Reduce Your Campus 
               <span className="text-green-600"> Carbon Footprint</span>
             </h1>
@@ -464,5 +462,3 @@ function App() {
     </div>
   );
 }
-
-export default App
