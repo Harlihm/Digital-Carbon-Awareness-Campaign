@@ -7,6 +7,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Separator } from './components/ui/separator';
 import { Badge } from './components/ui/badge';
 import { Leaf, Heart, Users, Calculator, Car, Lightbulb, Zap } from 'lucide-react';
+import { useEffect } from 'react';
+
+
 
 export default function App() {
   const [generatorUses, setGeneratorUses] = useState('');
@@ -16,23 +19,62 @@ export default function App() {
   const [motorcycleDuration, setMotorcycleDuration] = useState('');
   const [emissions, setEmissions] = useState<number | null>(null);
 
-  const calculateEmissions = () => {
-    // Emission factors (kg CO2 per hour of use)
-    const emissionFactors: Record<string, number> = {
-      petrol: 2.3, // kg CO2 per hour for petrol generator/motorcycle
-      diesel: 2.7, // kg CO2 per hour for diesel generator
-      kerosene: 2.5 // kg CO2 per hour for kerosene
-    };
+  const images = [
+  '/images/emission1.png',
+  '/images/emission2.png',
+  // '/images/emission3.jpg',
+  // '/images/emission4.jpg',
+];
 
-    const generatorWeekly = (parseFloat(generatorUses) || 0) * (parseFloat(generatorDuration) || 0);
-    const motorcycleWeekly = (parseFloat(motorcycleUses) || 0) * (parseFloat(motorcycleDuration) || 0);
-    
-    const totalHours = generatorWeekly + motorcycleWeekly;
-    const factor = emissionFactors[fuelType] || 2.3;
-    
-    const weeklyEmissions = totalHours * factor;
-    setEmissions(weeklyEmissions);
+const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+// Change image every 1 second
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }, 2000);
+  return () => clearInterval(interval);
+}, []);
+
+ const calculateEmissions = () => {
+  // Emission factors (kg CO₂ per hour of use)
+  const emissionFactors: Record<string, number> = {
+    petrol: 2.3,    // Petrol generator/motorcycle
+    diesel: 2.7,    // Diesel generator
+    kerosene: 2.5   // Kerosene stoves/lights
   };
+
+  // Convert inputs to numbers, safely fallback to 0
+  const generatorUsesNum = parseFloat(generatorUses) || 0;
+  const generatorDurationNum = parseFloat(generatorDuration) || 0;
+  const motorcycleUsesNum = parseFloat(motorcycleUses) || 0;
+  const motorcycleDurationNum = parseFloat(motorcycleDuration) || 0;
+
+  // Weekly total hours of usage
+  const generatorWeekly = generatorUsesNum * generatorDurationNum;
+  const motorcycleWeekly = motorcycleUsesNum * motorcycleDurationNum;
+  const totalHours = generatorWeekly + motorcycleWeekly;
+
+  // Select emission factor based on fuel type or default to petrol (2.3)
+  const factor = fuelType in emissionFactors ? emissionFactors[fuelType] : 2.3;
+
+  // Final weekly emission in kg CO₂
+  const weeklyEmissions = totalHours * factor;
+
+  // Update the state
+  setEmissions(weeklyEmissions);
+};
+
+
+const getRiskLevel = (value: number) => {
+  if (value <= 20) return { label: 'Safe ✅', color: 'text-green-600' };
+  if (value <= 30) return { label: 'Medium ⚠️', color: 'text-yellow-500' };
+  if (value <= 50) return { label: 'Risky 🔶', color: 'text-orange-500' };
+  return { label: 'Danger 🔥', color: 'text-red-600' };
+};
+
+
+
 
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
@@ -211,6 +253,15 @@ export default function App() {
               </CardContent>
             </Card>
           </div>
+          {/* ---------------------------------- */}
+          {/* Auto-rotating / click-change image */}
+<div className="w-full max-w-3xl mx-auto my-10 cursor-pointer" onClick={() => setCurrentImageIndex((prev) => (prev + 1) % images.length)}>
+  <img
+    src={images[currentImageIndex]}
+    alt="Carbon Emission Awareness"
+    className="w-full h-104 object-cover rounded-lg shadow-md transition-all duration-500"
+  />
+</div>
         </div>
       </section>
 
@@ -421,8 +472,13 @@ export default function App() {
                     <h3 className="text-2xl font-bold text-gray-800 mb-2">Your Weekly Emissions</h3>
                     <div className="text-4xl font-bold text-green-600 mb-4">
                       {emissions.toFixed(2)} kg CO₂
+                      
                     </div>
-                    <div className="text-gray-600 space-y-2">
+                          <div className={`text-lg font-semibold ${getRiskLevel(emissions).color} mb-4`}>
+        Status: {getRiskLevel(emissions).label}
+      </div>
+
+                    {/* <div className="text-gray-600 space-y-2">
                       <p>That's equivalent to approximately:</p>
                       <div className="grid grid-cols-2 gap-4 mt-4">
                         <div className="bg-white/50 p-3 rounded">
@@ -434,7 +490,7 @@ export default function App() {
                           <div className="text-sm">car driving equivalent</div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}
