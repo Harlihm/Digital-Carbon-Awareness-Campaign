@@ -46,7 +46,7 @@ export default function App() {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Leaf className="h-8 w-8 text-green-600" />
-              <span className="text-xl font-semibold text-gray-800">EcoAware Campus</span>
+              <span className="text-xl font-semibold text-gray-800">Carbon Footprint Aware</span>
             </div>
             <div className="hidden md:flex gap-6">
               <button onClick={() => scrollToSection('intro')} className="text-gray-600 hover:text-green-600 transition-colors">
@@ -448,7 +448,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Leaf className="h-8 w-8 text-green-400" />
-            <span className="text-xl font-semibold">EcoAware Campus</span>
+            <span className="text-xl font-semibold">Carbon Footprint Aware</span>
           </div>
           <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
             Together, we can create a more sustainable campus environment. Every small action contributes to a larger positive impact on our shared community and planet.
