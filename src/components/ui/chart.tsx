@@ -289,7 +289,11 @@ function ChartLegendContent({
     >
       {payload.map((item) => {
         const key = `${nameKey || item.dataKey || "value"}`;
-        const itemConfig = getPayloadConfigFromPayload(config, item, key);
+      const itemConfig = getPayloadConfigFromPayload(
+  config,
+  item as TooltipPayload<number, string>,
+  key
+);
 
         return (
           <div
