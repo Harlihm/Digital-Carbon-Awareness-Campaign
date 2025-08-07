@@ -244,11 +244,13 @@ function ChartLegendContent({
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean;
-    nameKey?: string;
-  }) {
+}: {
+  className?: string;
+  hideIcon?: boolean;
+  nameKey?: string;
+  payload?: RechartsPrimitive.LegendProps["payload"];
+  verticalAlign?: RechartsPrimitive.LegendProps["verticalAlign"];
+}) {
   const { config } = useChart();
 
   if (!Array.isArray(payload) || payload.length === 0) {
