@@ -21,7 +21,7 @@ export default function App() {
 
   const images = [
   '/images/emission1.png',
-  '/images/emission2.png',
+  // '/images/emission2.png',
   // '/images/emission3.jpg',
   // '/images/emission4.jpg',
 ];
